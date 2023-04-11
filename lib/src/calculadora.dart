@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'components/button.dart';
+
 class Calculadora extends StatefulWidget {
   const Calculadora({super.key});
 
@@ -22,6 +24,20 @@ class _CalculadoraState extends State<Calculadora> {
     super.dispose();
   }
 
+  final List<List<String>> _teclado = [
+    ['c', 'del', '.', '/'],
+    ['7', '8', '9', '*'],
+    ['4', '5', '6', '-'],
+    ['1', '2', '3', '+'],
+    ['0', '='],
+  ];
+
+  void _digitar(String texto) {
+    setState(() {
+      _calculadoraController.text += texto;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +48,7 @@ class _CalculadoraState extends State<Calculadora> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                textAlign: TextAlign.right,
                 controller: _calculadoraController,
                 readOnly: true,
                 decoration: const InputDecoration(
@@ -39,233 +56,25 @@ class _CalculadoraState extends State<Calculadora> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.025,
+                height: MediaQuery.of(context).size.width * 0.08,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.025,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.025,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.025,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.025,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red[100],
-                      side: const BorderSide(width: 1.0, color: Colors.red),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * 0.20, 60),
-                    ),
-                    child: const Text('+'),
-                  ),
-                ],
-              ),
+              ..._teclado
+                  .map((linha) => Column(
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: linha
+                                  .map((tecla) => Button(
+                                        texto: tecla,
+                                        onClick: () {
+                                          _digitar(tecla);
+                                        },
+                                      ))
+                                  .toList()),
+                          const SizedBox(height: 10)
+                        ],
+                      ))
+                  .toList()
             ],
           ),
         ),
