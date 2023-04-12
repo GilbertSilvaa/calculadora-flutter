@@ -32,7 +32,49 @@ class _CalculadoraState extends State<Calculadora> {
     ['0', '='],
   ];
 
+  final List<String> operacoesTeclas = ['+', '-', '*', '/'];
+  final List<String> clearTeclas = ['del', 'c'];
+
+  bool _validarEntrada(String tecla) {
+    String ultimoCaracter;
+    if (_calculadoraController.text.isEmpty) {
+      ultimoCaracter = "";
+    } else {
+      ultimoCaracter =
+          _calculadoraController.text[_calculadoraController.text.length - 1];
+    }
+
+    if ((ultimoCaracter == '.' && tecla == '.') ||
+        (operacoesTeclas.contains(ultimoCaracter) && tecla == '.') ||
+        (operacoesTeclas.contains(tecla) &&
+            _calculadoraController.text.isEmpty) ||
+        (_calculadoraController.text.isEmpty && tecla == '.')) {
+      return false;
+    }
+
+    if (operacoesTeclas.contains(ultimoCaracter) &&
+        operacoesTeclas.contains(tecla)) return false;
+
+    return true;
+  }
+
   void _digitar(String texto) {
+    if (!_validarEntrada(texto)) return;
+
+    switch (texto) {
+      case 'del':
+        if (_calculadoraController.text.isNotEmpty) {
+          _calculadoraController.text = _calculadoraController.text
+              .substring(0, _calculadoraController.text.length - 1);
+        }
+        break;
+      case 'c':
+        _calculadoraController.text = "";
+        break;
+    }
+
+    if (clearTeclas.contains(texto)) return;
+
     setState(() {
       _calculadoraController.text += texto;
     });
