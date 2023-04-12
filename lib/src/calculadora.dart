@@ -40,8 +40,12 @@ class _CalculadoraState extends State<Calculadora> {
     if (_calculadoraController.text.isEmpty) {
       ultimoCaracter = "";
     } else {
-      ultimoCaracter =
-          _calculadoraController.text[_calculadoraController.text.length - 1];
+      List<String> listaValores = _calculadoraController.text
+          .split('')
+          .where((element) => element != ' ')
+          .toList();
+
+      ultimoCaracter = listaValores[listaValores.length - 1];
     }
 
     if ((ultimoCaracter == '.' && tecla == '.') ||
@@ -55,29 +59,104 @@ class _CalculadoraState extends State<Calculadora> {
     if (operacoesTeclas.contains(ultimoCaracter) &&
         operacoesTeclas.contains(tecla)) return false;
 
+    if (ultimoCaracter == '.' && operacoesTeclas.contains(tecla)) return false;
+
+    String ultimoValor = _calculadoraController.text
+        .split(' ')[_calculadoraController.text.split(' ').length - 1];
+
+    if (ultimoValor.split('.').length == 2 && tecla == '.') return false;
+
     return true;
   }
 
   void _digitar(String texto) {
     if (!_validarEntrada(texto)) return;
 
-    switch (texto) {
-      case 'del':
-        if (_calculadoraController.text.isNotEmpty) {
-          _calculadoraController.text = _calculadoraController.text
-              .substring(0, _calculadoraController.text.length - 1);
-        }
-        break;
-      case 'c':
-        _calculadoraController.text = "";
-        break;
+    if (texto == 'del') {
+      if (_calculadoraController.text[_calculadoraController.text.length - 1] ==
+          ' ') {
+        _calculadoraController.text = _calculadoraController.text
+            .substring(0, _calculadoraController.text.length - 3);
+        return;
+      }
+
+      if (_calculadoraController.text.isNotEmpty) {
+        _calculadoraController.text = _calculadoraController.text
+            .substring(0, _calculadoraController.text.length - 1);
+        return;
+      }
+    }
+
+    if (texto == 'c') {
+      _calculadoraController.text = "";
+      return;
     }
 
     if (clearTeclas.contains(texto)) return;
 
+    if (operacoesTeclas.contains(texto)) {
+      bool jaTemOperacao = false;
+
+      for (String tecla in _calculadoraController.text.split(' ')) {
+        if (operacoesTeclas.contains(tecla)) jaTemOperacao = true;
+      }
+
+      if (jaTemOperacao) {
+        List<String> expressao = _calculadoraController.text.split(' ');
+        double resultado = calcular(double.parse(expressao[0]),
+            double.parse(expressao[2]), expressao[1]);
+
+        if (expressao[1] == '/' && expressao[2] == '0') return;
+
+        setState(() {
+          _calculadoraController.text = '$resultado';
+        });
+      }
+    }
+
+    if (texto == '=') {
+      List<String> expressao = _calculadoraController.text.split(' ');
+
+      if (expressao[1] == '/' && expressao[2] == '0') return;
+
+      double resultado = calcular(
+          double.parse(expressao[0]), double.parse(expressao[2]), expressao[1]);
+
+      setState(() {
+        _calculadoraController.text = '$resultado';
+      });
+
+      return;
+    }
+
     setState(() {
-      _calculadoraController.text += texto;
+      if (operacoesTeclas.contains(texto)) {
+        _calculadoraController.text += " $texto ";
+      } else {
+        _calculadoraController.text += texto;
+      }
     });
+  }
+
+  double calcular(double valor1, double valor2, String operacao) {
+    double resultado = 0;
+
+    switch (operacao) {
+      case '+':
+        resultado = valor1 + valor2;
+        break;
+      case '-':
+        resultado = valor1 - valor2;
+        break;
+      case '*':
+        resultado = valor1 * valor2;
+        break;
+      case '/':
+        resultado = valor1 / valor2;
+        break;
+    }
+
+    return resultado;
   }
 
   @override
