@@ -11,6 +11,8 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
+  final List<String> teclasEspeciais = ['+', '-', '*', '/', 'del', 'c', '='];
+
   @override
   Widget build(BuildContext context) {
     if (widget.texto == '0') {
@@ -19,11 +21,31 @@ class _ButtonState extends State<Button> {
           widget.onClick();
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red[100],
-          side: const BorderSide(width: 1.0, color: Colors.red),
-          fixedSize: Size(MediaQuery.of(context).size.width * 0.67, 60),
+            backgroundColor: Colors.blue[200],
+            fixedSize: Size(MediaQuery.of(context).size.width * 0.67, 60),
+            textStyle: const TextStyle(fontSize: 20)),
+        child: Text(
+          widget.texto,
+          style: const TextStyle(
+              color: Colors.black87, fontWeight: FontWeight.w500),
         ),
-        child: Text(widget.texto),
+      );
+    }
+
+    if (teclasEspeciais.contains(widget.texto)) {
+      return TextButton(
+        onPressed: () {
+          widget.onClick();
+        },
+        style: TextButton.styleFrom(
+            backgroundColor: Colors.blue[500],
+            fixedSize: Size(MediaQuery.of(context).size.width * 0.2, 60),
+            textStyle: const TextStyle(fontSize: 20)),
+        child: Text(
+          widget.texto,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
       );
     }
 
@@ -32,11 +54,14 @@ class _ButtonState extends State<Button> {
         widget.onClick();
       },
       style: TextButton.styleFrom(
-        backgroundColor: Colors.red[100],
-        side: const BorderSide(width: 1.0, color: Colors.red),
-        fixedSize: Size(MediaQuery.of(context).size.width * 0.2, 60),
+          backgroundColor: Colors.blue[200],
+          fixedSize: Size(MediaQuery.of(context).size.width * 0.2, 60),
+          textStyle: const TextStyle(fontSize: 20)),
+      child: Text(
+        widget.texto,
+        style:
+            const TextStyle(color: Colors.black87, fontWeight: FontWeight.w500),
       ),
-      child: Text(widget.texto),
     );
   }
 }

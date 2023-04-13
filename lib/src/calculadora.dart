@@ -69,6 +69,17 @@ class _CalculadoraState extends State<Calculadora> {
     return true;
   }
 
+  String _formatarResultado(double valor) {
+    if (valor.toString().endsWith('.0')) {
+      String valorFormatado =
+          valor.toString().substring(0, valor.toString().length - 2);
+
+      return valorFormatado;
+    }
+
+    return valor.toString();
+  }
+
   void _digitar(String texto) {
     if (!_validarEntrada(texto)) return;
 
@@ -109,7 +120,7 @@ class _CalculadoraState extends State<Calculadora> {
         if (expressao[1] == '/' && expressao[2] == '0') return;
 
         setState(() {
-          _calculadoraController.text = '$resultado';
+          _calculadoraController.text = _formatarResultado(resultado);
         });
       }
     }
@@ -123,7 +134,7 @@ class _CalculadoraState extends State<Calculadora> {
           double.parse(expressao[0]), double.parse(expressao[2]), expressao[1]);
 
       setState(() {
-        _calculadoraController.text = '$resultado';
+        _calculadoraController.text = _formatarResultado(resultado);
       });
 
       return;
@@ -162,6 +173,7 @@ class _CalculadoraState extends State<Calculadora> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white24,
       body: Center(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
@@ -169,15 +181,23 @@ class _CalculadoraState extends State<Calculadora> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
-                textAlign: TextAlign.right,
-                controller: _calculadoraController,
-                readOnly: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
+                  textAlign: TextAlign.right,
+                  controller: _calculadoraController,
+                  readOnly: true,
+                  style: const TextStyle(
+                      fontSize: 36,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
+                  decoration: const InputDecoration(
+                    hintText: "0",
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(
+                        fontSize: 36,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
+                  )),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.08,
+                height: MediaQuery.of(context).size.width * 0.1,
               ),
               ..._teclado
                   .map((linha) => Column(
