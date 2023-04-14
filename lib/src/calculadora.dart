@@ -86,20 +86,27 @@ class _CalculadoraState extends State<Calculadora> {
     if (texto == 'del') {
       if (_calculadoraController.text[_calculadoraController.text.length - 1] ==
           ' ') {
-        _calculadoraController.text = _calculadoraController.text
-            .substring(0, _calculadoraController.text.length - 3);
+        setState(() {
+          _calculadoraController.text = _calculadoraController.text
+              .substring(0, _calculadoraController.text.length - 3);
+        });
         return;
       }
 
       if (_calculadoraController.text.isNotEmpty) {
-        _calculadoraController.text = _calculadoraController.text
-            .substring(0, _calculadoraController.text.length - 1);
+        setState(() {
+          _calculadoraController.text = _calculadoraController.text
+              .substring(0, _calculadoraController.text.length - 1);
+        });
+
         return;
       }
     }
 
     if (texto == 'c') {
-      _calculadoraController.text = "";
+      setState(() {
+        _calculadoraController.text = "";
+      });
       return;
     }
 
